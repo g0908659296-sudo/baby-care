@@ -28,3 +28,12 @@ Repository 的發布目錄內需有 `index.html`、`style.css` 與 `script.js`�
 
 實際問答系統連結： https://www.cplo.xyz/apps/10055/
 GitHub Pages 只負責託管靜態介紹網站，不執行 Python、Ollama、LangChain 或 ChromaDB 後端。
+
+
+## 專題原始架構圖與進階 RAG 流程圖
+
+網站已加入依使用者提供的專題簡報截圖整理的兩張圖：
+- `architecture-overview.png`：系統整體架構，包含知識庫建置、LangChain AI Agent、檢索工具、回答模型、對話記憶與 Dashboard。
+- `advanced-rag-flow.png`：進階 RAG 的 11 步驟流程，包含 Query Rewriting、BM25 與向量檢索、Reranker、對話記憶讀寫、Prompt 組合及回答輸出。
+
+網頁中點擊圖片可開啟大圖；請將這兩個 PNG 與 HTML、CSS、JS 一起上傳至 GitHub Pages。

@@ -76,7 +76,7 @@
 
     <section id="team" class="section team-section">
       <div class="container team-content">
-        <div class="team-title"><span class="section-kicker">OUR TEAM</span><h2>以專業資料與技術，<br>支持新生兒照護。</h2><p>靜宜大學｜資料科學暨大數據分析與應用學系&嘉義基督教醫院</p></div>
+        <div class="team-title"><span class="section-kicker">OUR TEAM</span><h2>以專業資料與技術，<br>支持新生兒照護。</h2><p>靜宜大學｜資料科學暨大數據分析與應用學系</p></div>
         <div class="team-details">
           <div><span>指導老師</span><strong>羅主斌 老師、張漢呈 老師</strong></div>
           <div><span>專題成員</span><strong>黃思涵、賴姵均、黃昱嘉、林采諼</strong></div>
@@ -130,18 +130,59 @@
     <section id="workflow" class="section workflow-overview">
       <div class="container">
         <div class="center-heading">
-          <span class="section-kicker">SYSTEM FLOW</span>
-          <h2>從提問到回答的流程</h2>
-          <p>以下為專題 RAG 問答流程的概念整理。</p>
+          <span class="section-kicker">QUESTION & ANSWER PIPELINE</span>
+          <h2>使用者提出問題後，系統如何回答？</h2>
+          <p>依專題實作內容，從文字／語音輸入、問題改寫、混合檢索、排序，到模型生成與來源呈現，逐步說明問答流程。</p>
         </div>
-        <div class="flow-overview-grid">
-          <article><span>01</span><h3>使用者提問</h3><p>輸入新生兒照護相關問題。</p></article>
-          <b aria-hidden="true">→</b>
-          <article><span>02</span><h3>檢索衛教資料</h3><p>從知識庫尋找與問題相關的內容。</p></article>
-          <b aria-hidden="true">→</b>
-          <article><span>03</span><h3>整理檢索結果</h3><p>透過混合檢索與重新排序改善候選資料排序。</p></article>
-          <b aria-hidden="true">→</b>
-          <article><span>04</span><h3>生成回答</h3><p>語言模型參考檢索資料產生回覆。</p></article>
+
+        <figure class="source-diagram source-diagram-rag">
+          <a href="advanced-rag-flow.png" target="_blank" rel="noopener" aria-label="開啟完整進階 RAG 流程圖">
+            <img src="advanced-rag-flow.png" alt="進階 RAG 完整流程圖：使用者輸入問題、Query Rewriting、BM25 與向量多重檢索、BGE Reranker 重新排序、取得檢索資料、儲存本次對話紀錄、讀取對話記憶、整合提示詞、GPT-OSS 20B 生成回答、輸出新生兒衛教資訊，以及再次儲存對話記憶。" loading="lazy">
+          </a>
+          <figcaption><strong>專題原始流程圖｜進階 RAG（Advanced RAG）</strong><span>包含 11 個步驟，以及對話記憶的讀取與寫入循環。可點擊圖片開啟大圖。</span></figcaption>
+        </figure>
+        <div class="qa-flow">
+          <div class="qa-stage qa-stage-input">
+            <div class="qa-stage-heading"><span class="qa-stage-number">01</span><div><h3>使用者輸入問題</h3><p>由 Streamlit 提供問答介面</p></div></div>
+            <div class="qa-stage-content qa-input-options">
+              <article class="qa-detail-card"><span class="qa-chip">文字輸入</span><h4>輸入照護問題</h4><p>例如新生兒餵食、睡眠、清潔或臍帶護理等衛教問題。</p></article>
+              <div class="qa-or">或</div>
+              <article class="qa-detail-card"><span class="qa-chip">語音輸入</span><h4>語音轉文字</h4><p>使用 Streamlit 的 <code>st.audio_input()</code> 收音，再透過 Whisper Medium 轉成文字，供使用者確認後送出。</p></article>
+            </div>
+          </div>
+          <div class="qa-down"><span>問題進入檢索流程</span><b>↓</b></div>
+
+          <div class="qa-stage qa-stage-retrieval">
+            <div class="qa-stage-heading"><span class="qa-stage-number">02</span><div><h3>問題處理與候選資料檢索</h3><p>先讓查詢更適合搜尋，再從衛教知識庫找出相關內容</p></div></div>
+            <div class="qa-process-grid">
+              <article class="qa-process-card"><span class="qa-step-label">2A｜查詢整理</span><h4>Query Rewriting</h4><p>改寫或整理使用者問題，讓查詢內容更適合後續檢索。</p></article>
+              <div class="qa-mini-arrow">→</div>
+              <article class="qa-process-card"><span class="qa-step-label">2B｜平行檢索</span><h4>向量搜尋 + BM25</h4><p><strong>向量搜尋：</strong>透過 BGE-M3 的語意向量，在 ChromaDB 知識庫中尋找相近內容。<br><strong>BM25：</strong>以關鍵字相關性找出候選文件。</p></article>
+              <div class="qa-mini-arrow">→</div>
+              <article class="qa-process-card"><span class="qa-step-label">2C｜融合排序</span><h4>RRF</h4><p>將向量搜尋與 BM25 的檢索排名進行融合，整合不同檢索方式的結果。</p></article>
+              <div class="qa-mini-arrow">→</div>
+              <article class="qa-process-card"><span class="qa-step-label">2D｜重新排序</span><h4>BGE Reranker</h4><p>再依問題與候選內容的關聯性重新排序，整理出較適合提供給生成模型的資料。</p></article>
+            </div>
+            <div class="qa-retrieval-note"><span>知識庫基礎</span> ChromaDB 儲存由衛教文件與影片字幕切割、經 BGE-M3 向量化後的內容；專題簡報記載向量搜尋曾設定取回 Top 5 相關內容。</div>
+          </div>
+          <div class="qa-down"><span>將檢索到的衛教內容提供給模型</span><b>↓</b></div>
+
+          <div class="qa-stage qa-stage-generation">
+            <div class="qa-stage-heading"><span class="qa-stage-number">03</span><div><h3>組合上下文並生成回答</h3><p>由語言模型參考檢索結果產生回覆</p></div></div>
+            <div class="qa-generation-grid">
+              <article class="qa-detail-card"><span class="qa-chip">檢索上下文</span><h4>相關衛教資料</h4><p>把檢索及排序後的候選內容作為回答依據，降低模型只依賴參數知識作答的情況。</p></article>
+              <div class="qa-plus">＋</div>
+              <article class="qa-model-card"><span class="qa-chip qa-chip-gold">LLM</span><h4>Ollama + GPT-OSS 20B</h4><p>接收使用者問題與檢索到的上下文，生成自然語言回答。</p></article>
+              <div class="qa-equals">↓</div>
+              <article class="qa-answer-card"><span class="qa-chip qa-chip-green">輸出結果</span><h4>顯示回答與資料來源</h4><p>在問答介面呈現生成內容及參考來源，讓使用者能回頭查看相關衛教資訊。</p></article>
+            </div>
+          </div>
+
+          <div class="qa-support-grid">
+            <article><span class="qa-support-icon">↔</span><div><h4>多輪對話狀態</h4><p>LangGraph Checkpointer、MemorySaver 與 <code>thread_id</code> 用於延續同一段對話的上下文。這是對話狀態管理，不等於永久保存完整聊天歷史。</p></div></article>
+            <article><span class="qa-support-icon">▤</span><div><h4>查詢紀錄與管理儀表板</h4><p>系統以 JSON 記錄查詢資料，管理端可透過 Streamlit Dashboard 查看總查詢量、每日查詢、近期紀錄、來源使用情形與常見內容。</p></div></article>
+          </div>
+          <p class="qa-flow-caveat">說明：此流程依據專題資料整理。RAG 可讓回答參考檢索到的衛教內容，但不代表每次回答都必然正確，也不能取代醫療專業判斷。</p>
         </div>
       </div>
     </section>
@@ -160,19 +201,47 @@
 
     <section id="architecture" class="section architecture-section">
       <div class="container">
-        <div class="section-heading narrow-heading"><span class="section-kicker">SYSTEM ARCHITECTURE DIAGRAM</span><h2>系統架構圖</h2><p>整體流程從使用者提出問題開始，透過知識檢索取得相關資料，再由語言模型生成回答。</p></div>
-        <div class="flow">
-          <article class="flow-step"><span class="flow-number">01</span><div class="flow-icon">☏</div><h3>提出問題</h3><p>使用者輸入新生兒照護相關問題。</p></article>
-          <div class="flow-arrow" aria-hidden="true">→</div>
-          <article class="flow-step"><span class="flow-number">02</span><div class="flow-icon">⌕</div><h3>查詢優化與檢索</h3><p>優化查詢，結合語意搜尋與關鍵字搜尋取得候選資料。</p></article>
-          <div class="flow-arrow" aria-hidden="true">→</div>
-          <article class="flow-step"><span class="flow-number">03</span><div class="flow-icon">▤</div><h3>相關資料排序</h3><p>利用 RRF 與 Reranking 等方法整理候選資料的排序。</p></article>
-          <div class="flow-arrow" aria-hidden="true">→</div>
-          <article class="flow-step"><span class="flow-number">04</span><div class="flow-icon">✧</div><h3>生成回答</h3><p>將檢索到的資料提供給語言模型，生成衛教問答內容。</p></article>
-        </div>
-        <div class="tech-stack">
-          <div><span class="stack-label">主要技術</span><strong>LangChain</strong><strong>Chroma</strong><strong>BGE-M3</strong><strong>Ollama</strong><strong>GPT-OSS 20B</strong><strong>Streamlit</strong></div>
-          <p>以上依據專題簡報所列技術整理；實際部署環境與版本請以目前專案程式碼為準。</p>
+        <div class="section-heading narrow-heading"><span class="section-kicker">SYSTEM ARCHITECTURE DIAGRAM</span><h2>系統架構圖</h2><p>將系統拆成「知識庫建置」與「使用者問答」兩條流程，並呈現管理端的查詢紀錄與統計功能。</p></div>
+
+        <figure class="source-diagram source-diagram-architecture">
+          <a href="architecture-overview.png" target="_blank" rel="noopener" aria-label="開啟完整新生兒衛教智慧問答系統架構圖">
+            <img src="architecture-overview.png" alt="新生兒衛教智慧問答系統整體架構：左側為 PDF、YouTube 字幕及 TXT 衛教資料的離線知識庫建置；中間為 LangChain AI Agent、Search Tool／Advanced RAG、Chroma Vector Database、GPT-OSS 20B 與回答安全檢查；右側為對話記憶功能及查詢紀錄與分析 Dashboard；上方為使用者與 Streamlit Web 介面。" loading="lazy">
+          </a>
+          <figcaption><strong>專題原始系統架構圖｜整體架構</strong><span>完整呈現知識庫離線建置、線上 AI 問答、對話記憶、管理儀表板及各模組關係。可點擊圖片開啟大圖。</span></figcaption>
+        </figure>
+        <div class="architecture-board">
+          <div class="architecture-lane lane-knowledge">
+            <div class="lane-heading"><span class="lane-index">A</span><div><h3>知識庫建置流程</h3><p>先把衛教內容整理成可檢索的知識資料</p></div></div>
+            <div class="architecture-nodes">
+              <article class="architecture-node"><span class="node-type">資料來源</span><h4>衛教內容收集</h4><p>嘉義基督教醫院衛教資料<br>國民健康署資料<br>YouTube 衛教影片字幕</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node"><span class="node-type">文件處理</span><h4>載入與文字切割</h4><p>PDF 使用 PyPDFLoader<br>字幕整理為 TXT<br>約 500 字元切片、重疊 100 字元</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node"><span class="node-type">向量化</span><h4>BGE-M3 Embedding</h4><p>將文字轉成向量表示<br>向量維度：1024</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node node-storage"><span class="node-type">知識儲存</span><h4>ChromaDB</h4><p>保存向量化的衛教內容<br>供後續相似度檢索</p></article>
+            </div>
+          </div>
+
+          <div class="architecture-link-label"><span>知識庫提供檢索資料</span><span class="down-link">↓</span></div>
+
+          <div class="architecture-lane lane-query">
+            <div class="lane-heading"><span class="lane-index">B</span><div><h3>使用者問答流程</h3><p>從輸入問題到產生有資料依據的回答</p></div></div>
+            <div class="architecture-nodes">
+              <article class="architecture-node"><span class="node-type">使用者介面</span><h4>Streamlit</h4><p>輸入文字問題<br>或語音轉文字後確認</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node"><span class="node-type">問題處理</span><h4>Query Rewriting</h4><p>改寫或整理查詢<br>讓問題更適合檢索</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node node-retrieval"><span class="node-type">混合檢索</span><h4>取得候選資料</h4><p>Chroma 向量搜尋 + BM25<br>以 RRF 融合排序<br>再用 BGE Reranker 重新排序</p></article>
+              <span class="architecture-connector">→</span>
+              <article class="architecture-node node-model"><span class="node-type">回答生成</span><h4>Ollama + GPT-OSS 20B</h4><p>參考檢索到的衛教內容<br>生成回答並呈現來源</p></article>
+            </div>
+            <div class="architecture-side-notes">
+              <article><span class="side-icon">↔</span><div><h4>多輪對話狀態</h4><p>LangGraph Checkpointer、MemorySaver 與 thread_id 協助延續同一段對話的上下文；這是對話狀態管理，不等於永久保存完整聊天歷史。</p></div></article>
+              <article><span class="side-icon">▤</span><div><h4>查詢紀錄與管理儀表板</h4><p>以 JSON 記錄查詢資料，並在 Streamlit Dashboard 查看查詢量、近期紀錄、來源使用情形與常見內容。</p></div></article>
+            </div>
+          </div>
+          <p class="architecture-note">圖中呈現的是依專題資料整理的系統邏輯架構；語音輸入使用 Whisper Medium 進行語音轉文字。實際模組串接與部署細節仍以專案程式碼為準。</p>
         </div>
       </div>
     </section>
