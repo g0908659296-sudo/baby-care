@@ -5,7 +5,7 @@
  * GitHub Pages serves this static introduction website only; it does not run
  * the Python, model, vector database, or other backend components.
  */
-const SYSTEM_URL = ""; // Example: "https://your-live-system.example.com"
+const SYSTEM_URL = "https://www.cplo.xyz/apps/10055/"; // 實際問答系統獨立網址
 
 document.addEventListener("DOMContentLoaded", () => {
   const menuButton = document.querySelector(".menu-toggle");

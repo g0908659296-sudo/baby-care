@@ -123,3 +123,187 @@ button { font: inherit; }
   .footer-inner { flex-wrap: wrap; gap: 10px 15px; }.footer-inner > a:last-child { margin-left: auto; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; } }
+
+
+/* ===== Baby Care requested palette + accessible larger typography ===== */
+:root {
+  --navy: #21466A;
+  --navy-deep: #183650;
+  --blue: #315D85;
+  --blue-soft: #E5EEF6;
+  --blue-pale: #F0F5F8;
+  --cream: #FAF7F0;
+  --paper: #FFFDF8;
+  --ink: #263544;
+  --muted: #536575;
+  --gold: #D7B56D;
+  --line: #D9E2E8;
+  --purple: #8A78B8;
+  --shadow: 0 20px 55px rgba(33, 70, 106, .12);
+}
+body { background: var(--paper); font-size: 18px; line-height: 1.9; }
+.site-header { background: rgba(250,247,240,.97); border-bottom-color: #d8e0e6; }
+.brand strong { font-size: 22px; color: var(--navy); }
+.brand small { font-size: 13px; }
+.brand-mark { background: var(--navy); color: var(--gold); }
+.primary-nav { gap: clamp(10px, 1.3vw, 22px); }
+.primary-nav a { font-size: 15px; }
+.primary-nav a:hover, .primary-nav a:focus-visible { color: var(--purple); }
+.primary-nav .nav-cta { background: var(--navy); color: #fff; }
+.hero { background: linear-gradient(135deg, #315D85 0%, #274E72 62%, #3C5F7B 100%); }
+.hero h1 { font-size: clamp(42px, 4.5vw, 64px); color: #fff8e9; line-height: 1.32; }
+.hero h1 span { color: var(--gold); }
+.hero-lead { font-size: 20px; line-height: 1.9; }
+.hero-note, .hero-note .note-icon { font-size: 16px; }
+.hero-art { background: radial-gradient(circle at 50% 45%, #e9f0f5 0, #e9f0f5 34%, #f7f0e3 35%, #f7f0e3 100%); }
+.moon, .star { color: var(--gold); }
+.floating-pill { font-size: 15px; color: var(--navy); }
+.section { padding-top: clamp(64px, 7vw, 100px); padding-bottom: clamp(64px, 7vw, 100px); }
+.section-kicker { color: var(--purple); font-size: 14px; letter-spacing: 2px; }
+.section-heading h2, .center-heading h2, .team-title h2, .access-copy h2, .future-block h2 { font-size: clamp(32px, 3.3vw, 46px); line-height: 1.45; color: var(--navy); }
+.section-heading h2 span, .center-heading h2 span { color: #B08D42; }
+.section-heading p, .center-heading p { font-size: 18px; line-height: 1.95; }
+.purpose-card h3, .feature-card h3, .flow-step h3 { font-size: 21px; color: var(--navy); }
+.purpose-card p, .feature-card p, .flow-step p { font-size: 17px; line-height: 1.9; }
+.purpose-card { background: #fffdf8; border-color: #e4dfd4; }
+.purpose-symbol { color: var(--purple); }
+.quick-facts { gap: 20px; }
+.fact strong { font-size: 18px; }
+.fact small { font-size: 15px; }
+.feature-grid { gap: 22px; }
+.feature-card { border-color: #e2e4e5; }
+.feature-blue { background: #edf4f8; }
+.feature-lilac { background: #f1edf8; }
+.feature-cream { background: #fbf4e6; }
+.feature-mint { background: #eef4f1; }
+.feature-icon { color: var(--purple); }
+.feature-tag { font-size: 13px; color: var(--purple); }
+.feature-footer { font-size: 14px; }
+.architecture-section { background: #f5f0e7; }
+.flow-step { background: #fffdf8; border-color: #e2d8c4; }
+.flow-step .flow-number { color: #a9873f; }
+.flow-step .flow-icon { color: var(--purple); }
+.flow-arrow { color: var(--purple); font-size: 25px; }
+.tech-stack strong { background: #eee9f6; color: #625187; font-size: 14px; }
+.tech-stack p { font-size: 14px; }
+.result-panel { background: #fffdf8; border-color: #e3dfd6; }
+.result-panel-head { font-size: 17px; }
+.metric-label { font-size: 16px; }
+.metric-label strong { color: var(--navy); font-size: 20px; }
+.metric-track { background: #e8e8e3; }
+.metric-track span { background: #5d8db5; }
+.metric-row:nth-of-type(3) .metric-track span { background: #9b8ac7; }
+.metric-row:nth-of-type(4) .metric-track span { background: var(--gold); }
+.result-caveat, .chart-note { font-size: 15px; line-height: 1.8; }
+.future-block p, .future-tags span { font-size: 16px; }
+.future-tags span { background: #eee9f6; color: #625187; border-color: #e0d8ef; }
+.access-section { background: var(--blue-pale); }
+.access-card { background: linear-gradient(120deg, #e7eff5, #fbf5e8); border-color: #d8e1e8; }
+.access-copy p { font-size: 18px; }
+.access-hint { font-size: 14px !important; }
+.button { font-size: 17px; }
+.button-primary { background: var(--navy); }
+.button-quiet { border-color: #d8dfe4; color: var(--navy); }
+.medical-note { font-size: 15px; }
+.team-section { background: var(--navy); }
+.team-title h2 { color: #fff8e9; }
+.team-title p, .team-details span { font-size: 16px; }
+.team-details strong { font-size: 18px; color: #fff8e9; }
+.team-details > div { border-color: rgba(255,255,255,.2); }
+.team-details span { color: var(--gold); }
+.site-footer { background: #183650; }
+.footer-inner, .copyright { font-size: 14px; }
+.flow-overview-grid { display:grid; grid-template-columns:1fr 24px 1fr 24px 1fr 24px 1fr; gap:12px; align-items:stretch; margin-top:32px; }
+.flow-overview-grid article { background:#fffdf8; border:1px solid #e2dfe0; border-radius:18px; padding:22px 16px; box-shadow:0 12px 30px rgba(33,70,106,.05); }
+.flow-overview-grid article span { display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#eee9f6; color:#625187; font-weight:800; font-size:15px; }
+.flow-overview-grid h3 { font-size:19px; color:var(--navy); margin:14px 0 8px; }
+.flow-overview-grid p { font-size:16px; line-height:1.8; color:var(--muted); margin:0; }
+.flow-overview-grid > b { display:grid; place-items:center; color:#b08d42; font-size:22px; }
+.purpose-section { background:#f4f0e8; }
+.purpose-section .purpose-list { width:100%; }
+.purpose-section .purpose-card { min-height:110px; }
+#team, #motivation, #purpose, #workflow, #features, #architecture, #evaluation { scroll-margin-top: 100px; }
+@media (max-width: 980px) {
+  .primary-nav { gap: 10px; }
+  .primary-nav a { font-size: 14px; }
+}
+@media (max-width: 760px) {
+  body { font-size: 17px; }
+  .container { width: min(100% - 34px, 620px); }
+  .nav-wrap { min-height: 76px; }
+  .brand strong { font-size: 21px; }
+  .brand small { font-size: 12px; }
+  .primary-nav a { font-size: 17px; padding: 10px 0; }
+  .hero { padding-top: 48px; }
+  .hero h1 { font-size: clamp(39px, 10vw, 48px); }
+  .hero-lead { font-size: 18px; }
+  .section-heading h2, .center-heading h2, .team-title h2, .access-copy h2, .future-block h2 { font-size: clamp(30px, 8vw, 38px); }
+  .section-heading p, .center-heading p { font-size: 17px; }
+  .purpose-card h3, .feature-card h3 { font-size: 20px; }
+  .purpose-card p, .feature-card p { font-size: 16px; }
+  .flow-overview-grid { grid-template-columns: 1fr; gap: 10px; }
+  .flow-overview-grid > b { transform: rotate(90deg); height: 20px; }
+  .flow-overview-grid article { padding: 20px; }
+  .flow-overview-grid h3 { font-size: 19px; }
+  .flow-overview-grid p { font-size: 16px; }
+  .metric-label { font-size: 14px; }
+  .metric-label strong { font-size: 18px; }
+  .team-details strong { font-size: 16px; }
+  .future-tags span { font-size: 15px; }
+}
+
+
+/* Readability and added research detail */
+:root { --body-size: 17px; }
+body { font-size: 17px; }
+.primary-nav { font-size: 16px; gap: clamp(10px, 1.5vw, 22px); }
+.brand strong { font-size: 21px; }
+.brand small { font-size: 12px; }
+.hero-lead { font-size: 19px; }
+.hero-note { font-size: 14px; }
+.button { font-size: 16px; min-height: 52px; }
+.section-heading p, .center-heading p { font-size: 17px; line-height: 1.95; }
+.section-heading h2, .center-heading h2 { font-size: clamp(30px, 3.2vw, 42px); }
+.team-details strong { font-size: 17px; }
+.team-details span { font-size: 14px; }
+.purpose-card h3, .feature-card h3, .flow-step h3 { font-size: 20px; }
+.purpose-card p, .feature-card p, .flow-step p { font-size: 16px; line-height: 1.9; }
+.fact strong { font-size: 17px; }
+.fact small { font-size: 14px; }
+.motivation-points { display:grid; gap:14px; align-content:center; }
+.motivation-points article { display:flex; gap:16px; padding:20px; background:#fff; border:1px solid #e8e2d8; border-radius:14px; box-shadow:0 8px 24px #24445d0a; }
+.motivation-points article>span { flex:0 0 42px; height:42px; display:grid; place-items:center; border-radius:13px; background:#eee9f6; color:#7967a8; font-weight:800; }
+.motivation-points h3,.source-grid h3 { margin:0 0 6px; color:var(--navy); font-size:19px; }
+.motivation-points p,.source-grid p { margin:0; color:var(--muted); font-size:16px; line-height:1.85; }
+.sources-section { background:#f4f0e8; }
+.source-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.source-grid article { padding:22px; background:#fffdf9; border:1px solid #e7dfd2; border-radius:14px; }
+.source-symbol { display:inline-grid; place-items:center; width:38px; height:38px; margin-bottom:12px; border-radius:12px; background:#e8eff6; color:#315d85; font-size:22px; }
+.evaluation-method { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center; margin-top:50px; padding-top:34px; border-top:1px solid #dfd8cd; }
+.evaluation-method h2 { margin:8px 0 12px; font-size:clamp(25px,3vw,34px); color:var(--navy); }
+.evaluation-method p { font-size:16px; line-height:1.9; color:var(--muted); }
+.metric-chips { display:flex; flex-wrap:wrap; gap:10px; }
+.metric-chips span { padding:10px 13px; border-radius:9px; background:#eee9f6; color:#5d4f83; font-size:14px; font-weight:600; }
+.result-caveat, .chart-note, .access-hint, .medical-note { font-size:15px; line-height:1.9; }
+.future-tags span { font-size:15px; }
+.site-footer { font-size:14px; }
+@media (max-width: 900px) {
+ .primary-nav { font-size:17px; }
+ .hero-lead { font-size:18px; }
+ .section-heading p, .center-heading p { font-size:17px; }
+ .evaluation-method { grid-template-columns:1fr; gap:18px; }
+ .source-grid { grid-template-columns:1fr; }
+}
+@media (max-width: 640px) {
+ body { font-size:17px; }
+ .primary-nav a { font-size:18px; }
+ .brand strong { font-size:20px; }
+ .brand small { font-size:12px; }
+ .hero h1 { font-size:clamp(36px, 10vw, 46px); }
+ .hero-lead { font-size:18px; }
+ .section-heading h2, .center-heading h2 { font-size:30px; }
+ .purpose-card h3, .feature-card h3, .flow-step h3 { font-size:19px; }
+ .purpose-card p, .feature-card p, .flow-step p, .motivation-points p, .source-grid p { font-size:16px; }
+ .motivation-points article, .source-grid article { padding:17px; }
+ .metric-chips span { font-size:14px; }
+}
