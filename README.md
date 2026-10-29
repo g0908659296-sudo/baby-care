@@ -37,3 +37,10 @@ GitHub Pages 只負責託管靜態介紹網站，不執行 Python、Ollama、Lan
 - `advanced-rag-flow.png`：進階 RAG 的 11 步驟流程，包含 Query Rewriting、BM25 與向量檢索、Reranker、對話記憶讀寫、Prompt 組合及回答輸出。
 
 網頁中點擊圖片可開啟大圖；請將這兩個 PNG 與 HTML、CSS、JS 一起上傳至 GitHub Pages。
+
+
+## 本次更新
+- 網站視覺配色調整為參考進階 RAG 圖的淺藍、白色與藍色重點色。
+- `advanced-rag-flow.png` 使用提供的進階 RAG 11 步驟流程圖。
+- `architecture-overview.png` 使用提供的系統整體架構圖。
+- 兩張圖皆使用原始比例完整顯示，不設定固定高度、不裁切；點擊圖片可開啟原圖。

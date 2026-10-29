@@ -1,17 +1,17 @@
 /* Baby Care — warm, responsive project showcase */
 :root {
-  --navy: #263f59;
-  --navy-deep: #1e344b;
-  --blue: #759bb8;
-  --blue-soft: #e6eff5;
-  --blue-pale: #f1f6f8;
-  --cream: #fbf8f1;
-  --paper: #fffdf9;
-  --ink: #293b4b;
-  --muted: #687987;
-  --gold: #c7ae76;
-  --line: #dce5e9;
-  --shadow: 0 20px 55px rgba(38, 63, 89, .09);
+  --navy: #173f70;
+  --navy-deep: #12345d;
+  --blue: #438bd0;
+  --blue-soft: #e5f3ff;
+  --blue-pale: #f4faff;
+  --cream: #f7fbff;
+  --paper: #ffffff;
+  --ink: #243b55;
+  --muted: #5e748c;
+  --gold: #8bbde8;
+  --line: #cfe5f7;
+  --shadow: 0 20px 55px rgba(45, 119, 183, .10);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 90px; }
@@ -425,3 +425,36 @@ body { font-size: 17px; }
 .source-diagram figcaption strong { color: #263f59; font-size: 16px; }
 .source-diagram-rag { max-width: 1080px; }
 @media (max-width: 640px) { .source-diagram { margin: 20px auto 28px; padding: 7px; border-radius: 12px; } .source-diagram img { border-radius: 6px; } .source-diagram figcaption { font-size: 13px; padding: 10px 4px 3px; } .source-diagram figcaption strong { font-size: 14px; } }
+
+
+/* Reference-image refresh: light blue/white palette and uncropped original diagrams */
+body { background-color: #f7fbff; }
+header, .site-header { background-color: rgba(255,255,255,.96); }
+.source-diagram {
+  width: 100%;
+  max-width: 1180px;
+  margin: 28px auto 36px;
+  padding: clamp(8px, 1.6vw, 18px);
+  overflow: visible;
+  background: #fff;
+  border: 1px solid #d7eafb;
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(39, 111, 174, .08);
+}
+.source-diagram a { display: block; width: 100%; cursor: zoom-in; }
+.source-diagram img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  object-position: center;
+  border-radius: 8px;
+}
+.source-diagram-architecture { max-width: 1180px; }
+.source-diagram-rag { max-width: 1180px; }
+@media (max-width: 640px) {
+  .source-diagram { width: 100%; padding: 5px; border-radius: 10px; }
+  .source-diagram img { width: 100%; height: auto !important; }
+}
